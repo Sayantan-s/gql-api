@@ -1,0 +1,21 @@
+{
+  "name": "api-gql",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "tsc-watch": "^6.0.4",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.9.0",
+    "@types/express": "^4.17.17",
+    "@types/node": "^20.4.5",
+    "express": "^4.18.2",
+    "graphql": "^16.7.1"
+  },
+  "scripts": {
+    "start": "node build/index.js",
+    "dev": "tsc-watch --onSuccess \"yarn start\""
+  }
+}
