@@ -10,9 +10,7 @@ async function init() {
 
   app.use(express.json());
 
-  app.get("/health", (_, res) => {
-    res.json({ message: "UP" });
-  });
+  app.get("/health", (_, res) => res.json({ message: "UP" }));
 
   app.use("/graphql", expressMiddleware(gqlServer));
 

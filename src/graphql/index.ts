@@ -1,35 +1,23 @@
 import { ApolloServer } from "@apollo/server";
-import { prisma } from "../services/prisma";
-
-interface IWorld {
-  name: string;
-  age: string;
-}
-
-interface IData {
-  heading: string;
-  description: string;
-}
+import { todos } from "./service/todos";
 
 export async function createGQLServer() {
   const gqlServer = new ApolloServer({
     typeDefs: `
+      ${todos.typeDefs.types}  
       type Query{
-        getTodos: String
+        ${todos.typeDefs.queries}
       }
       type Mutation{
-        createTodo(heading:String!,description:String!): Boolean
+        ${todos.typeDefs.mutations}
       }
     `,
     resolvers: {
       Query: {
-        getTodos: () => `Hello World`,
+        ...todos.resolvers.queries,
       },
       Mutation: {
-        createTodo: async (_, data: IData) => {
-          await prisma.todo.create({ data });
-          return true;
-        },
+        ...todos.resolvers.mutations,
       },
     },
   });
