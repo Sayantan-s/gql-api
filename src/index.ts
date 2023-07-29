@@ -1,10 +1,16 @@
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import express from "express";
+import { prisma } from "./services/prisma";
 
 interface IWorld {
   name: string;
   age: string;
+}
+
+interface IData {
+  heading: string;
+  description: string;
 }
 
 async function init() {
@@ -14,12 +20,21 @@ async function init() {
   const gqlServer = new ApolloServer({
     typeDefs: `
       type Query{
-        hello(name:String, age:Int): String
+        test(name:String, age:Int): String
+      }
+      type Mutation{
+        createTodo(heading:String!,description:String!): Boolean
       }
     `,
     resolvers: {
       Query: {
-        hello: (_, data: IWorld) => `Hey ${data.name} is ${data.age}`,
+        test: (_, data: IWorld) => `Hey ${data.name} is ${data.age}`,
+      },
+      Mutation: {
+        createTodo: async (_, data: IData) => {
+          await prisma.todo.create({ data });
+          return true;
+        },
       },
     },
   });
