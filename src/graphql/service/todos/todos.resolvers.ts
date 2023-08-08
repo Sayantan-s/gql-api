@@ -14,8 +14,9 @@ const queries = {
 
 const mutations = {
   createTodo: async (_: any, data: IData) => {
-    await prisma.todo.create({ data });
-    return true;
+    const result = await prisma.todo.create({ data });
+    console.log(result);
+    return result;
   },
 };
 

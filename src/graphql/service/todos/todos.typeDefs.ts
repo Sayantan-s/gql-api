@@ -12,7 +12,7 @@ const queries = `#graphql
     getTodos: [Todo]
 `;
 const mutations = `#graphql
-    createTodo(heading:String!,description:String!): Boolean
+    createTodo(heading:String!,description:String!): Todo
 `;
 
 export const typeDefs = { queries, mutations, types };
